@@ -34,13 +34,18 @@ function generateCsv(modelName, absolutePath, callback) {
         if (err) {
           return whilstCallback(err);
         }
+        console.log("Printing links count", links.length);
         if (links.length == 0) {
           counter = count + 100;
         }
-        links.forEach(function(link) {
+        async.eachSeries(links, function(link, acb) {
           writer.write({id: link.id, url: link.url});
+          setTimeout(function() {
+            return acb();
+          }, 10);
+        }, function() {
+          return whilstCallback();
         });
-        return whilstCallback();
       });
 
     }, function(err) {

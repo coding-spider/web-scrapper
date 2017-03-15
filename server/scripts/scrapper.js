@@ -30,7 +30,7 @@ function crawl(url, callback) {
     console.log("Creating dom object...");
     var $ = cheerio.load(body);
     var links = $('a');
-    async.each(links, function(link, acb) {
+    async.eachSeries(links, function(link, acb) {
       var linkUrl = (link.attribs && link.attribs.href) ? getAbsolutePath(link.attribs.href) : "";
       //Scrapping is done only of medium.com bound urls ignoring external links
       if (linkUrl && linkUrl.match(/medium.com/gi)) {
@@ -118,7 +118,10 @@ function generateCsv() {
   });
 }
 
-//Boot Function
+//for testing purposes
+// generateCsv();
+
+// Boot Function
 (function() {
   //Model is destroyed everytime the function is triggered. This is done for testing purposes.
   Link.destroyAll({}, function(err, info) {
