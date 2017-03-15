@@ -1,0 +1,12 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mdb": {
+    "database": "scrape",
+    "name": "mdb",
+    "connector": "mongodb",
+    "allowExtendedOperators": true
+  }
+}
